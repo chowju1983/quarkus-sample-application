@@ -1,4 +1,4 @@
-package org.lambda.quarkus.accountManagement;
+package org.lambda.quarkus.datamanipulation;
 
 import io.vertx.mutiny.pgclient.PgPool;
 import io.vertx.mutiny.sqlclient.Row;
@@ -12,27 +12,25 @@ import java.util.concurrent.ExecutionException;
 
 
 @ApplicationScoped
-public class AccountManagementUtil {
+public class DataManipulate {
 
-    private Logger LOGGER = LoggerFactory.getLogger(AccountManagementUtil.class.getName());
+    private Logger LOGGER = LoggerFactory.getLogger(DataManipulate.class.getName());
 
-    public void processAccountManagementUtilities(PgPool connection, CardDetails cardDetails) {
-        startAccountManager();
-        collectAccountProfileData(cardDetails);
-        oneExposerCalculation();
-        accountPasswordInformation();
-        endAccountManager();
-        collectProductData(cardDetails, connection);
-        collectCustomerProfileData(cardDetails, connection);
+    public void sampleDataManipulate(PgPool connection, CardDetails cardDetails) {
+        startProcess();
+        collectSampleData1(cardDetails);
+        endProcess();
+        collectSampleData2(cardDetails, connection);
+        collectSampleData3(cardDetails, connection);
     }
 
-    private void startAccountManager() {
-        LOGGER.debug("Start account manager...");
+    private void startProcess() {
+        LOGGER.debug("Starting Data Manipulation Process..");
     }
 
-    private void collectAccountProfileData(CardDetails cardDetails) {
+    private void collectSampleData1(CardDetails cardDetails) {
         LOGGER.debug("-------------------------------");
-        LOGGER.debug("Collect Account Profile Data...");
+        LOGGER.debug("Collect Sample Data 1...");
         LOGGER.debug("-------------------------------");
         LOGGER.debug("Account no - {}", cardDetails.getAccountno());
         LOGGER.debug("Card type - {}", cardDetails.getCardtype());
@@ -45,27 +43,12 @@ public class AccountManagementUtil {
         LOGGER.debug("Exposure/risk variables...");
     }
 
-    public void sEAccums() {
-        LOGGER.debug("SE accums...");
+
+    private void endProcess() {
+        LOGGER.debug("End Process...");
     }
 
-    public void lockAccount() {
-        LOGGER.debug("Locking account...");
-    }
-
-    private void accountPasswordInformation() {
-        LOGGER.debug("Account password information...");
-    }
-
-    private void oneExposerCalculation() {
-        LOGGER.debug("One exposer calculation.....");
-    }
-
-    private void endAccountManager() {
-        LOGGER.debug("End account manager...");
-    }
-
-    private void collectProductData(CardDetails cardDetails, PgPool connection) {
+    private void collectSampleData2(CardDetails cardDetails, PgPool connection) {
         try {
             connection.preparedQuery("select card_type, limits, currency from \"FraudRiskSchema\".\"ProductData\" " +
                     "prd where prd.card_type_id = $1")
@@ -75,7 +58,7 @@ public class AccountManagementUtil {
                         if (rSet.iterator().hasNext()) {
                             Row row = rSet.iterator().next();
                             LOGGER.debug("--------------------------");
-                            LOGGER.debug("Collect Product Data.....");
+                            LOGGER.debug("Collect Sample Data 2.....");
                             LOGGER.debug("--------------------------");
                             LOGGER.debug("Card type - {}", row.getString("card_type"));
                             LOGGER.debug("Limits - {}", row.getInteger("limits"));
@@ -93,7 +76,7 @@ public class AccountManagementUtil {
 
     }
 
-    private void collectCustomerProfileData(CardDetails cardDetails, PgPool connection) {
+    private void collectSampleData3(CardDetails cardDetails, PgPool connection) {
 
         try {
             connection.preparedQuery("select cust_id, name, address, age, phone, email from \"FraudRiskSchema\".\"CustomerProfile\" " +
@@ -104,7 +87,7 @@ public class AccountManagementUtil {
                         if (rSet.iterator().hasNext()) {
                             Row row = rSet.iterator().next();
                             LOGGER.debug("--------------------------");
-                            LOGGER.debug("Collect Customer Profile.....");
+                            LOGGER.debug("Collect Sample Data 3.....");
                             LOGGER.debug("Cust id - {}", row.getInteger("cust_id"));
                             LOGGER.debug("Name - {}", row.getString("name"));
                             LOGGER.debug("Address - {}", row.getString("address"));

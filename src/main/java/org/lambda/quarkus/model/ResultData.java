@@ -1,10 +1,10 @@
 package org.lambda.quarkus.model;
 
-public class MLModel {
+public class ResultData {
     private String resultData;
     private boolean status;
 
-    public MLModel(String resultData, boolean status) {
+    public ResultData(String resultData, boolean status) {
         this.resultData =resultData;
         this.status = status;
     }

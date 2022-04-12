@@ -1,4 +1,4 @@
-package org.lambda.quarkus.email;
+package org.lambda.quarkus.notification;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ public class EmailUtil {
 
     private Logger LOGGER = LoggerFactory.getLogger(EmailUtil.class.getName());
 
-    public void emailAgeNeustar()  {
-        LOGGER.debug("Email Age Neustart.....");
+    public void email()  {
+        LOGGER.debug("Sending Email Notification....");
     }
 }

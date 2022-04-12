@@ -1,4 +1,4 @@
-package org.lambda.quarkus.parser;
+package org.lambda.quarkus.data;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -13,11 +13,11 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.concurrent.ExecutionException;
 
 @ApplicationScoped
-public class Parser {
+public class CustomerData {
 
-    private Logger LOGGER = LoggerFactory.getLogger(Parser.class.getName());
+    private Logger LOGGER = LoggerFactory.getLogger(CustomerData.class.getName());
 
-    public CardDetails authMessageParser(PgPool dbConnection, String requestId) {
+    public CardDetails getCustomerData(PgPool dbConnection, String requestId) {
 
         String sql = "select sess.session_id, acc.account_no, prd.card_type, \n" +
                 "\t\tacc.card_no, acc.pin, acc.aav, acc.cust_id, prd.card_type_id from \n" +
@@ -55,7 +55,7 @@ public class Parser {
             e.printStackTrace();
         }
 
-        LOGGER.debug("Card Details fetched successfully from Database. {}",cardDetails);
+        LOGGER.debug("Customer Details fetched successfully from Database. {}",cardDetails);
         return cardDetails;
     }
 }
